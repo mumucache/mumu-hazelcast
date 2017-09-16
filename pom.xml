@@ -64,6 +64,7 @@
             <artifactId>hazelcast</artifactId>
             <version>3.8.5</version>
         </dependency>
+
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-client</artifactId>

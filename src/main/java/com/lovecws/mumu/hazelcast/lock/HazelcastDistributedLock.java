@@ -25,7 +25,7 @@ public class HazelcastDistributedLock {
         lock.lock();
         try {
             System.out.println("线程-" + Thread.currentThread().getName() + "获取锁" + lockName + "....");
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
