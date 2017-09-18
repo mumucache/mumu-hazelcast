@@ -36,9 +36,11 @@ public class HazelcastRingbuffer {
         public void run() {
             try {
                 long seq = rb.tailSequence();
-                for (; ; ) {
-                    System.out.println(rb.readOne(seq));
-                    seq++;
+                if (seq > 0) {
+                    for (; ; ) {
+                        System.out.println(rb.readOne(seq));
+                        seq++;
+                    }
                 }
             } catch (InterruptedException e) {
             }

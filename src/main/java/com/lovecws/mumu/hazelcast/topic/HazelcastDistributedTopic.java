@@ -41,10 +41,11 @@ public class HazelcastDistributedTopic implements MessageListener<String> {
         ITopic<String> topic = hazelcastInstance.getReliableTopic(topicName);
         topic.addMessageListener(new HazelcastDistributedTopic());
         topic.publish("Hello to distributed world");
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(1);
+
+        //LocalTopicStats localTopicStats = topic.getLocalTopicStats();
+        //System.out.println(localTopicStats);
         hazelcastInstance.shutdown();
-        LocalTopicStats localTopicStats = topic.getLocalTopicStats();
-        System.out.println(localTopicStats);
     }
 
     @Override
