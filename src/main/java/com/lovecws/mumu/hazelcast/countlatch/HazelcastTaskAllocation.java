@@ -55,7 +55,7 @@ public class HazelcastTaskAllocation {
         @Override
         public void run() {
             super.run();
-            HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+            HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
             ICountDownLatch countDownLatch = hazelcastInstance.getCountDownLatch(countDownLatchName);
             //设定主任务安排的子任务数量
             countDownLatch.trySetCount(taskCount);
@@ -94,7 +94,7 @@ public class HazelcastTaskAllocation {
         @Override
         public void run() {
             super.run();
-            HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+            HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
             ICountDownLatch countDownLatch = hazelcastInstance.getCountDownLatch(countDownLatchName);
             //执行子任务
             System.out.println("开始执行子任务【" + Thread.currentThread().getName() + "】...");

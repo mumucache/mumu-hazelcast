@@ -1,6 +1,9 @@
 package com.lovecws.mumu.hazelcast.jcache;
 
+import com.hazelcast.cache.HazelcastCachingProvider;
 import com.hazelcast.cache.ICache;
+import com.hazelcast.core.HazelcastInstance;
+import com.lovecws.mumu.hazelcast.HazelcastConfiguration;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
@@ -8,6 +11,9 @@ import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.AccessedExpiryPolicy;
 import javax.cache.expiry.Duration;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Properties;
 
 /**
  * @author babymm
@@ -24,7 +30,20 @@ public class HazelcastJCache {
      * @return
      */
     public ICache<String, Object> cache(String cacheName) {
-        CacheManager manager = Caching.getCachingProvider().getCacheManager();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
+        String instanceName = hazelcastInstance.getName();
+
+        Properties properties = new Properties();
+        properties.setProperty(HazelcastCachingProvider.HAZELCAST_INSTANCE_NAME, instanceName);
+        URI cacheManagerName = null;
+        try {
+            cacheManagerName = new URI("my-cache-manager");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        //CacheManager manager = Caching.getCachingProvider().getCacheManager();
+        CacheManager manager = Caching.getCachingProvider().getCacheManager(cacheManagerName, null, properties);
+
         MutableConfiguration<String, Object> configuration = new MutableConfiguration<String, Object>();
 
         configuration.setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));

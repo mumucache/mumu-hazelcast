@@ -1,4 +1,4 @@
-package com.lovecws.mumu.hazelcast.executorservice;
+package com.lovecws.mumu.hazelcast.executor;
 
 import org.junit.Test;
 

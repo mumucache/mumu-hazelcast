@@ -20,7 +20,7 @@ public class HazelcastReplicatedMap {
      * @param value   值
      */
     public void put(String mapName, String key, String value) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         ReplicatedMap<String, Object> map = hazelcastInstance.getReplicatedMap(mapName);
         Object put = map.put(key, value);
         System.out.println(put);
@@ -35,7 +35,7 @@ public class HazelcastReplicatedMap {
      * @return
      */
     public Object get(String mapName, String key) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         ReplicatedMap<String, String> map = hazelcastInstance.getReplicatedMap(mapName);
         Object value = map.get(key);
         hazelcastInstance.shutdown();

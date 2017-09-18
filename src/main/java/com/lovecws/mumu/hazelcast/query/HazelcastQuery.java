@@ -20,8 +20,10 @@ import java.util.Collection;
 public class HazelcastQuery {
 
     public void query() {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IMap<String, User> users = hazelcastInstance.getMap("usersMap123");
+        //添加索引
+        users.addIndex("username",true);
         System.out.println(JSON.toJSON(users));
         users.put("u1", new User("ganliang", 27, true));
         users.put("u2", new User("cws", 25, true));

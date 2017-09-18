@@ -20,7 +20,7 @@ public class HazelcastDistributedLock {
      * @param lockName
      */
     public void lock(String lockName) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         Lock lock = hazelcastInstance.getLock(lockName);
         lock.lock();
         try {

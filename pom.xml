@@ -190,6 +190,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
+                    <encoding>UTF-8</encoding>
                     <check/>
                 </configuration>
             </plugin>
@@ -206,6 +207,7 @@
                             <head>用途</head>
                         </tag>
                     </tags>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>

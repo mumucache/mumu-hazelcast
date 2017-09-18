@@ -24,7 +24,7 @@ public class HazelcastSemaphore {
      * @throws InterruptedException
      */
     public void semaphore(String semaphoreName, int semaphoreCount) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         //初始化信号量
         ISemaphore semaphore = hazelcastInstance.getSemaphore(semaphoreName);
         semaphore.init(semaphoreCount);

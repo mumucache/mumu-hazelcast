@@ -23,7 +23,7 @@ public class hazelcastBenchmark {
     public static HazelcastInstance hazelcastInstance;
     public static IMap<Object, Object> benchmarkMap;
     static {
-        hazelcastInstance= HazelcastConfiguration.instance();
+        hazelcastInstance= new HazelcastConfiguration().instance();
         benchmarkMap = hazelcastInstance.getMap("benchmarkMap");
     }
 

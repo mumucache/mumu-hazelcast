@@ -7,7 +7,7 @@ import com.lovecws.mumu.hazelcast.HazelcastConfiguration;
 /**
  * @author babymm
  * @version 1.0-SNAPSHOT
- * @Description: 分布式队列
+ * @Description: 分布式环 将固定数量的数据组成一个环，当数据存满之后，覆盖最先创建的数据
  * @date 2017-09-15 15:30
  */
 public class HazelcastRingbuffer {
@@ -16,9 +16,8 @@ public class HazelcastRingbuffer {
      * @param ringBuffer
      */
     public void ringbuffer(String ringBuffer) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         final Ringbuffer<Integer> rb = hazelcastInstance.getRingbuffer(ringBuffer);
-
         new MyThread(rb).start();
 
         for (int k = 0; k < 100; k++) {

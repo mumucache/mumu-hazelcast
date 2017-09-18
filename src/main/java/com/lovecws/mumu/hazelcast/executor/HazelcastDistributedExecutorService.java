@@ -1,5 +1,6 @@
-package com.lovecws.mumu.hazelcast.executorservice;
+package com.lovecws.mumu.hazelcast.executor;
 
+import com.hazelcast.console.Echo;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IExecutorService;
 import com.hazelcast.core.Member;
@@ -19,7 +20,7 @@ public class HazelcastDistributedExecutorService {
      * 消息调度
      */
     public void executor() {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
 
         IExecutorService ex = hazelcastInstance.getExecutorService("my-distributed-executor");
         ex.submit(new MessagePrinter("message to any node"));
@@ -27,6 +28,7 @@ public class HazelcastDistributedExecutorService {
         ex.executeOnMember(new MessagePrinter("message to very first member of the cluster"), firstMember);
         ex.executeOnAllMembers(new MessagePrinter("message to all members in the cluster"));
         ex.executeOnKeyOwner(new MessagePrinter("message to the member that owns the following key"), "key");
+        ex.submit(new Echo("hello world"));
         hazelcastInstance.shutdown();
     }
 

@@ -23,7 +23,7 @@ public class HazelcastEntryProcessor {
      * @param key     键
      */
     public void entryProcessor(String mapName, String key) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IMap<String, Object> hazelcastInstanceMap = hazelcastInstance.getMap(mapName);
 
         hazelcastInstanceMap.put(key, "value");

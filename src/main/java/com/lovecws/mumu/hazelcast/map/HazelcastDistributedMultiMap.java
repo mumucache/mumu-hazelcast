@@ -20,7 +20,7 @@ public class HazelcastDistributedMultiMap {
      * @param multiMapName 重复键map
      */
     public void multiMap(String multiMapName) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         MultiMap<String, String> multiMap = hazelcastInstance.getMultiMap(multiMapName);
         multiMap.put("key", "value1");
         multiMap.put("key", "value2");

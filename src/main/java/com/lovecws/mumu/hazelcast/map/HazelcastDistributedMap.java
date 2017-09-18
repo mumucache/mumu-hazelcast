@@ -23,7 +23,7 @@ public class HazelcastDistributedMap {
      * @return
      */
     public Object get(String map, String key) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         //如果map不存在 则自动创建
         IMap<Object, Object> instanceMap = hazelcastInstance.getMap(map);
         Object obj = instanceMap.get(key);
@@ -39,7 +39,7 @@ public class HazelcastDistributedMap {
      * @return
      */
     public Object getAsync(String map, String key) throws ExecutionException, InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         //如果map不存在 则自动创建
         IMap<Object, Object> instanceMap = hazelcastInstance.getMap(map);
         //异步调用
@@ -58,9 +58,13 @@ public class HazelcastDistributedMap {
      * @param value 值
      */
     public void put(String map, String key, Object value) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IMap<Object, Object> instanceMap = hazelcastInstance.getMap(map);
+        //map加锁
+        instanceMap.lock(key);
         Object put = instanceMap.put(key, value);
+        //map释放锁
+        instanceMap.unlock(key);
         System.out.println(put);
         hazelcastInstance.shutdown();
     }
@@ -72,7 +76,7 @@ public class HazelcastDistributedMap {
      * @param key 键
      */
     public void remove(String map, String key) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IMap<Object, Object> instanceMap = hazelcastInstance.getMap(map);
         Object obj = instanceMap.remove(key);
         System.out.println(obj);

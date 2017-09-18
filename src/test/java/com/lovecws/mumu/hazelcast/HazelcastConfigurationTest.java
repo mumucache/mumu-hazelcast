@@ -1,6 +1,7 @@
 package com.lovecws.mumu.hazelcast;
 
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -13,20 +14,41 @@ import java.util.concurrent.TimeUnit;
  */
 public class HazelcastConfigurationTest {
 
+    private HazelcastConfiguration hazelcastConfiguration = new HazelcastConfiguration();
+
     @Test
     public void instance() {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = hazelcastConfiguration.instance();
         System.out.println(hazelcastInstance);
         hazelcastInstance.shutdown();
     }
 
     @Test
     public void server() throws InterruptedException {
-        HazelcastConfiguration.server();
-        TimeUnit.SECONDS.sleep(100);
+        hazelcastConfiguration.server();
+        TimeUnit.SECONDS.sleep(10);
+    }
+
+    @Test
+    public void serverWithListener() throws InterruptedException {
+        HazelcastInstance server = hazelcastConfiguration.server();
+        //触发成员加入监听器和成员退出监听器
+        HazelcastInstance hazelcastInstance = hazelcastConfiguration.simpleServer();
+        hazelcastInstance.shutdown();
+
+        //触发成员对象创建和销毁监听器
+        IMap<Object, Object> listenerMap = server.getMap("listenerMap");
+        listenerMap.put("lover", "cws");
+        listenerMap.destroy();
+        TimeUnit.SECONDS.sleep(10);
+    }
+
+    @Test
+    public void distributedObjects() {
+        hazelcastConfiguration.distributedObjects();
     }
 
     public static void main(String[] args) {
-        HazelcastConfiguration.server();
+        new HazelcastConfiguration().server();
     }
 }

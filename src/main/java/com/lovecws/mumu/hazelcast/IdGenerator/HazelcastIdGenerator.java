@@ -21,7 +21,7 @@ public class HazelcastIdGenerator {
      * @param baseId          idGenerator 已baseId起步
      */
     public void idGenerator(String idGeneratorName, long baseId) {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IdGenerator idGenerator = hazelcastInstance.getIdGenerator(idGeneratorName);
         //id生成器已 baseId 为起步
         idGenerator.init(100000);
@@ -40,7 +40,7 @@ public class HazelcastIdGenerator {
      * @throws InterruptedException
      */
     public void generator(String idGeneratorName, long baseId) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         IdGenerator idGenerator = hazelcastInstance.getIdGenerator(idGeneratorName);
         //id生成器已 baseId 为起步
         CountDownLatch countDownLatch = new CountDownLatch(100);

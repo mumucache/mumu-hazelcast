@@ -14,4 +14,9 @@ public class HazelcastDistributedTopicTest {
     public void topic() throws InterruptedException {
         new HazelcastDistributedTopic().topic("babyMuTopic");
     }
+
+    @Test
+    public void reliableTopic() throws InterruptedException {
+        new HazelcastDistributedTopic().reliableTopic("babyMuReliableTopic");
+    }
 }

@@ -23,7 +23,7 @@ public class HazelcastCountLatch {
      * @throws InterruptedException
      */
     public void countLatch(String countLatchName, int count) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         ICountDownLatch countDownLatch = hazelcastInstance.getCountDownLatch(countLatchName);
         int countDownLatchCount = countDownLatch.getCount();
         System.out.println("countDownLatchCount:" + countDownLatchCount);
@@ -56,7 +56,7 @@ public class HazelcastCountLatch {
      * @param countLatchName
      */
     public void mainTaskApplication(String countLatchName, int count) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         ICountDownLatch countDownLatch = hazelcastInstance.getCountDownLatch(countLatchName);
         //设置一个应用需要多少个其他的应用来协调完成
         countDownLatch.trySetCount(count);
@@ -68,6 +68,7 @@ public class HazelcastCountLatch {
         } else {
             System.out.println("子任务完成失败.....");
         }
+        hazelcastInstance.shutdown();
     }
 
     /**
@@ -76,7 +77,7 @@ public class HazelcastCountLatch {
      * @param countLatchName 闭锁名称
      */
     public void taskApplication(String countLatchName) throws InterruptedException {
-        HazelcastInstance hazelcastInstance = HazelcastConfiguration.instance();
+        HazelcastInstance hazelcastInstance = new HazelcastConfiguration().instance();
         ICountDownLatch countDownLatch = hazelcastInstance.getCountDownLatch(countLatchName);
         TimeUnit.SECONDS.sleep(new Random().nextInt(5));
         countDownLatch.countDown();
