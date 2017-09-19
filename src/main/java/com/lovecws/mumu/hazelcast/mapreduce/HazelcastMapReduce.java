@@ -8,6 +8,8 @@ import com.hazelcast.mapreduce.aggregation.impl.LongSumAggregation;
 import com.lovecws.mumu.hazelcast.HazelcastConfiguration;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
@@ -28,6 +30,10 @@ public class HazelcastMapReduce implements Serializable {
         map.put("a1", "lovecws");
         map.put("a2", "lovebabymm");
         map.put("a3", "lovecwzijing");
+        map.put("a4", "lovecwzijing");
+        map.put("a5", "lovecwzijing");
+        map.put("a6", "lovecwzijing");
+        map.put("a7", "lovecwzijing");
 
         KeyValueSource<String, String> source = KeyValueSource.fromMap(map);
         Job<String, String> job = jobTracker.newJob(source);
@@ -53,9 +59,19 @@ public class HazelcastMapReduce implements Serializable {
 
         @Override
         public void map(final String key, final String document, final Context<String, Long> context) {
-            StringTokenizer tokenizer = new StringTokenizer(document.toLowerCase());
+            /*StringTokenizer tokenizer = new StringTokenizer(document.toLowerCase());
             while (tokenizer.hasMoreTokens()) {
                 context.emit(tokenizer.nextToken(), ONE);
+            }*/
+            if(document==null){
+                return;
+            }
+            for (int i = 0; i < document.length(); i++) {
+                char c = document.charAt(i);
+                if(Character.isSpaceChar(c)){
+                    continue;
+                }
+                context.emit(String.valueOf(c), ONE);
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.lovecws.mumu.hazelcast.jcache;
 
+import com.hazelcast.cache.CacheStatistics;
 import com.hazelcast.cache.HazelcastCachingProvider;
 import com.hazelcast.cache.ICache;
 import com.hazelcast.core.HazelcastInstance;
@@ -92,6 +93,8 @@ public class HazelcastJCache {
         ICache<String, Object> icache = cache(cacheName);
         int size = icache.size();
         icache.close();
+        CacheStatistics localCacheStatistics = icache.getLocalCacheStatistics();
+        System.out.println(localCacheStatistics);
         return size;
     }
 

@@ -104,14 +104,14 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/mumcache/mumu-hazelcast.git</connection>
-        <developerConnection>scm:git:git://github.com/mumcache/mumu-hazelcast.git</developerConnection>
-        <url>https://github.com/mumcache/mumu-hazelcast.git</url>
+        <connection>scm:git:git://github.com/mumucache/mumu-hazelcast.git</connection>
+        <developerConnection>scm:git:git://github.com/mumucache/mumu-hazelcast.git</developerConnection>
+        <url>https://github.com/mumucache/mumu-hazelcast.git</url>
     </scm>
     <!--issues-->
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/mumcache/mumu-hazelcast/issues</url>
+        <url>https://github.com/mumucache/mumu-hazelcast/issues</url>
     </issueManagement>
     <!-- 配置项目版本管理 -->
     <distributionManagement>
